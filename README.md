@@ -30,7 +30,7 @@ public class Main {
       double total=0;
       double average=0;
       
-      for (int i = 0; i < numbers.length; i++){
+      for (int i = 0; i < 7; i++){
         total += numbers[i];
       };
       
