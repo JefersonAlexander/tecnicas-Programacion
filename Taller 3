@@ -1,0 +1,140 @@
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+public class TallerTres {
+    record informacionPersonal(String nombre,
+                               String apellido,
+                               LocalDate fechaNacimiento,
+                               String direccion,
+                               String municipio,
+                               String nivelAcademico,
+                               String ocupacion,
+                               char genero,
+                               double peso,
+                               double estatura) {
+    }
+
+
+    public static void main(String[] args) {
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        List<informacionPersonal> data = new ArrayList<>();
+
+        data.add(new informacionPersonal("Juan", "Pérez", LocalDate.parse("15/03/1985", formatter), "Calle 123", "Medellin", "Licenciatura en Ingeniería", "Ingeniero de Software", 'M', 70, 1.75D));
+        data.add(new informacionPersonal("María", " García", LocalDate.parse("28/07/1992", formatter), "Calle 123", "Medellin", "Maestría en Psicología", "Psicóloga Clínica", 'F', 58, 1.68D));
+        data.add(new informacionPersonal("Carlos", " Pérez Garcia", LocalDate.parse("10/03/2023", formatter), "Calle 123", "Medellin", "", "", 'M', 3, 0.80D));
+        data.add(new informacionPersonal("Ana", " Martínez", LocalDate.parse("05/09/2009", formatter), "Calle 14", "Villa", "Bachiller", "Estudiante", 'F', 55, 1.60D));
+        data.add(new informacionPersonal("Luisa", "Hernández", LocalDate.parse("20/06/1989", formatter), "Carrera 789", "Envigado", "Doctorado en Economía", "Profesora Universitaria", 'F', 63, 1.70D));
+        data.add(new informacionPersonal("Javier", "López", LocalDate.parse("12/04/1975", formatter), "Calle San Juan", "Medellin", "Licenciatura en Arquitectura", "Arquitecto Independiente", 'M', 75, 1.82D));
+        data.add(new informacionPersonal("Laura", "Ramírez", LocalDate.parse("18/04/1998", formatter), "Avenida 6", "Ciudad Metropolitana", "Bachiller, Estudiante", "", 'F', 52, 1.65D));
+        data.add(new informacionPersonal("Martín", "Torres", LocalDate.parse("30/01/1998", formatter), "Avenida 6", "Aldea", "Bachiller", "Estudiante", 'M', 68, 1.78D));
+        data.add(new informacionPersonal("Sofia", "Vargas", LocalDate.parse("22/07/1995", formatter), "Avenida 6", "Rionegro", "Bachiller", "Estudiante", 'F', 60, 1.63D));
+        data.add(new informacionPersonal("Daniel", "Sánchez", LocalDate.parse("08/12/1999", formatter), "Avenida 6", "Rionegro", "Bachiller", "Estudiante", 'M', 72, 1.79D));
+
+
+
+
+        // Direcciones
+
+        for (informacionPersonal informacionPersonal : data) {
+            System.out.println(informacionPersonal.direccion);
+        }
+
+        System.out.println("----------------------------------------------------------------");
+
+        //1. Pesos:
+        double totalPesos = 0.0D;
+
+        for (informacionPersonal informacionPersonal : data) {
+            System.out.println(informacionPersonal.peso);
+            totalPesos += informacionPersonal.peso;
+
+        }
+
+        double promedioPesos = totalPesos / 10;
+        System.out.println("El promedio de los pesos " + promedioPesos);
+
+        System.out.println("----------------------------------------------------------------");
+
+        //2. Estaturas:
+        double maxEstatura = 0;
+        double minEstatura = Long.MAX_VALUE;
+
+        for (informacionPersonal informacionPersonal : data) {
+            System.out.println(informacionPersonal.estatura);
+            if (informacionPersonal.estatura > maxEstatura) {
+                maxEstatura = informacionPersonal.estatura;
+            }
+            
+            if (informacionPersonal.estatura < minEstatura) {
+                minEstatura = informacionPersonal.estatura;
+            }
+
+        }
+
+        System.out.println("La maxima estatura " + maxEstatura);
+        System.out.println("La minima estatura " + minEstatura);
+
+        System.out.println("----------------------------------------------------------------");
+
+        //3. Generos
+        int cantidadHombres = 0;
+        int cantidadMujeres = 0;
+
+        for (informacionPersonal informacionPersonal : data) {
+            if (informacionPersonal.genero == 'M') {
+                cantidadHombres++;
+            }
+
+            if (informacionPersonal.genero == 'F') {
+                cantidadMujeres++;
+            }
+
+        }
+
+        System.out.println("La cantidad de hombres es " + cantidadHombres);
+        System.out.println("La cantidad de mujeres es " + cantidadMujeres);
+
+        System.out.println("----------------------------------------------------------------");
+
+        //4. Nombres Completos
+        StringBuilder  nombresConcatenados= new StringBuilder();
+
+        for (informacionPersonal informacionPersonal : data) {
+            nombresConcatenados.append(informacionPersonal.nombre + " "+ informacionPersonal.apellido).append(", ");
+
+        }
+
+        System.out.println(nombresConcatenados);
+
+
+        System.out.println("----------------------------------------------------------------");
+        //5. Edades:
+        long personaMasJoven =Long.MAX_VALUE;
+        String persona = "";
+        long edadDias=0;
+
+        for (informacionPersonal informacionPersonal : data) {
+            System.out.println(informacionPersonal.fechaNacimiento);
+
+            long diferenciaAnos = (-1) * (ChronoUnit.YEARS.between(LocalDate.now(), informacionPersonal.fechaNacimiento));
+            long diferenciaDias = ChronoUnit.DAYS.between(LocalDate.now(), informacionPersonal.fechaNacimiento);
+            System.out.println(informacionPersonal.fechaNacimiento + " " + diferenciaAnos + " " + diferenciaDias);
+
+            if (diferenciaAnos < personaMasJoven) {
+                personaMasJoven = diferenciaAnos;
+                persona = informacionPersonal.nombre;
+                edadDias= diferenciaDias* (-1);
+            }
+
+
+        }
+        System.out.println("La persona mas joven es "+persona+" y tiene " + personaMasJoven +
+                " Años y edad en dias es "+edadDias );
+
+    }
+
+}
