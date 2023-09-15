@@ -5,9 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ProyectoUno {
-
-    /*
+ /*
    Diariamente, muchas botellas reciclables de plástico y vidrio son desechadas y terminan en vertederos
    de basura en lugar de ser recicladas adecuadamente. Para abordar este problema, se propone una solución
    en la que las tiendas o supermercados de cadena incentiven a los clientes a reciclar estas botellas.
@@ -41,6 +39,7 @@ public class ProyectoUno {
 
     */
 
+public class ProyectoUno {
     record  customerInformation(String name,
                               String surname,
                               Integer age,
